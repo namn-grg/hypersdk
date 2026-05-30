@@ -316,7 +316,7 @@ impl TwapCmd {
                     );
 
                     let order = self.make_order(asset, limit_px, sz, TimeInForce::Ioc);
-                    let batch = BatchOrder { orders: vec![order], grouping: OrderGrouping::Na };
+                    let batch = BatchOrder { orders: vec![order], grouping: OrderGrouping::Na, builder: None };
 
                     match client.place(signer, batch, nonce(), None, None).await {
                         Ok(statuses) => {
@@ -508,6 +508,7 @@ impl TwapCmd {
         let batch = BatchOrder {
             orders: vec![order],
             grouping: OrderGrouping::Na,
+            builder: None,
         };
 
         match client.place(signer, batch, nonce(), None, None).await {
